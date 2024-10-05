@@ -1,0 +1,18 @@
+[tool.poetry]
+name = "vkr"
+version = "0.1.0"
+description = ""
+authors = ["Hasanchi <Aleksandr.Bezkorovaynyi@waveaccess.global>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.11"
+nemo = "^6.0.3"
+pvrecorder = "^1.2.3"
+pydantic = "^2.9.2"
+pydantic-settings = "^2.5.2"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
