@@ -11,6 +11,13 @@ nemo = "^6.0.3"
 pvrecorder = "^1.2.3"
 pydantic = "^2.9.2"
 pydantic-settings = "^2.5.2"
+botocore = "^1.35.34"
+boto3 = "^1.35.34"
+aboto3 = "^0.1.2"
+types-botocore = "^1.0.2"
+loguru = "^0.7.2"
+types-aiobotocore-s3 = "^2.15.1"
+numpy = "^2.1.1"
 
 
 [build-system]
