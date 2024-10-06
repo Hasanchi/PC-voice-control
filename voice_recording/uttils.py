@@ -24,7 +24,6 @@ def write_bytes(frame):
         duration = 1  # длительность в секундах
         t = np.linspace(0, duration, int(frame_rate * duration), endpoint=False)
         frequency = 440  # частота в Гц (ла)
-        audio_data = 0.5 * np.sin(2 * np.pi * frequency * t)
-        audio_data = (audio_data * 32767).astype(np.int16)  # Преобразуем в целые числа
-        wave_writer.writeframes(audio_data.tobytes())
+
+        wave_writer.writeframes(frame)
     return bytes_object.read()

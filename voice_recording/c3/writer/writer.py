@@ -34,7 +34,7 @@ class Writer:
     def write_frame(self, data: bytes):
         self._session.put_object(
             Bucket=self._bucket,
-            Key='test',
+            Key='test.mp4',
             Body=data,
         )
 
