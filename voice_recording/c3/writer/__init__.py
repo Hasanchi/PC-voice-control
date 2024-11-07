@@ -1,1 +1,2 @@
-from voice_recording.c3.writer.writer import Writer
+from voice_recording.c3.writer.cloud_operator import S3Operator
+from voice_recording.c3.writer.local_operator import LocalOperator

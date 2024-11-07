@@ -18,6 +18,7 @@ types-botocore = "^1.0.2"
 loguru = "^0.7.2"
 types-aiobotocore-s3 = "^2.15.1"
 numpy = "^2.1.1"
+pydub = "^0.25.1"
 
 
 [build-system]
