@@ -8,6 +8,7 @@ from pvrecorder import PvRecorder
 
 from .c3.cloud import upload_data
 from .settings import Settings
+from .run_command import start_execute_command
 
 
 SAMPLE_RATE = 16000
@@ -53,6 +54,7 @@ def listen(config):
                 if re.search('бор', command) or True:
                     print('Выполяю')
                     storage_command = upload_data(config, command)
+                    start_execute_command(storage_command)
 
     finally:
         recorder.stop()

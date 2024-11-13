@@ -1,11 +1,15 @@
 from datetime import datetime
 
 from typing import Literal
+from spellchecker import SpellChecker
 
 from .writer import LocalOperator, S3Operator
-
 from ..settings import S3Settings, LocalSettings
 
+spell = SpellChecker(language='ru')
+
+def correct_command(command: str) -> str:
+    return ' '.join([spell.correction(item) for item in command.split()])
 
 def upload_data(config: LocalSettings | S3Settings, command: str):
 
@@ -15,9 +19,9 @@ def upload_data(config: LocalSettings | S3Settings, command: str):
 
     writer: LocalOperator | S3Operator = target_storage(config)
 
-    bytes_command = command.encode()
+    correct = correct_command(command)
 
-    storage_path = writer.write_bytes(absolute_path, bytes_command)
+    storage_path = writer.write_bytes(absolute_path, correct.encode())
 
     return writer.read_bytes(storage_path).decode()
 
