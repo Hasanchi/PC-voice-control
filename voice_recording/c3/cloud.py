@@ -1,14 +1,23 @@
 from datetime import datetime
 
-from voice_recording.c3.writer import LocalOperator
+from typing import Literal
 
-from voice_recording.settings import Settings
+from .writer import LocalOperator, S3Operator
+
+from ..settings import S3Settings, LocalSettings
 
 
-def upload_data(config: Settings, absolute_path, wav):
+def upload_data(config: LocalSettings | S3Settings, command: str):
 
-    file_name = datetime.now().strftime("%Y%m%d_%H%M%S.mp3")
+    absolute_path = config.tmp_path.get_secret_value() + datetime.now().strftime("%Y%m%d_%H%M%S.txt")
 
-    writer: LocalOperator = LocalOperator(config.local)
+    target_storage = LocalOperator if isinstance(config, LocalSettings) else S3Operator
 
-    writer.write_bytes(absolute_path, wav)
+    writer: LocalOperator | S3Operator = target_storage(config)
+
+    bytes_command = command.encode()
+
+    storage_path = writer.write_bytes(absolute_path, bytes_command)
+
+    return writer.read_bytes(storage_path).decode()
+

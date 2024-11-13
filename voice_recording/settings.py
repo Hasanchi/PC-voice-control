@@ -8,6 +8,7 @@ class S3Settings(BaseModel):
     secret_key: SecretStr
     endpoint_url: SecretStr
     bucket: SecretStr
+    tmp_path: SecretStr
 
 
 class LocalSettings(BaseModel):

@@ -1,9 +1,7 @@
-from loguru import logger
 from boto3 import Session
 
-from voice_recording.c3.writer.base import Operator
+from voice_recording.c3.writer.base import Operator, log_decorator, BaseOverridesOperator
 from voice_recording.settings import Settings, S3Settings, LocalSettings
-from voice_recording.c3.writer.base import BaseOverridesOperator
 
 
 class S3Operator(Operator, BaseOverridesOperator):
@@ -17,8 +15,8 @@ class S3Operator(Operator, BaseOverridesOperator):
             endpoint_url=self.endpoint_url,
         )
 
-    def write_bytes(self, file_name: str) -> str:
-
+    @log_decorator
+    def write_bytes(self, file_name: str, data: bytes) -> str:
         request = self._session.put_object(
             Bucket=self.bucket,
             Key=file_name,
@@ -27,6 +25,7 @@ class S3Operator(Operator, BaseOverridesOperator):
 
         return request['Key']
 
+    @log_decorator
     def read_bytes(self, file_name: str) -> bytes:
         request = self._session.get_object(
             Bucket=self.bucket,
