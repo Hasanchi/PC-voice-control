@@ -52,7 +52,7 @@ def listen(config):
                 command: str = response['text']
 
                 if re.search('бор', command) or True:
-                    print('Выполяю')
+                    print('Выполняю')
                     storage_command = upload_data(config, command)
                     start_execute_command(storage_command)
 

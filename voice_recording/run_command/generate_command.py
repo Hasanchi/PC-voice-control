@@ -7,6 +7,14 @@ mapping_drive = {
         'permission': 'Users',
         'directory': 'C:\\'
     },
+    'ц': {
+        'permission': 'Users',
+        'directory': 'C:\\'
+    },
+    'це': {
+        'permission': 'Users',
+        'directory': 'C:\\'
+    },
     'C': {
         'permission': 'Users',
         'directory': 'C:\\'
@@ -25,13 +33,13 @@ exclude_dir = ['AppData', 'Application Data', 'VKR']
 
 def parse_command(command: str):
 
-    pattern = r"(открой|удали) ([^']+) на диске ([A-Z])"
+    pattern = r"(открой|удали) ([a-я]+) на (диске|диски) ([а-я])"
 
     match = re.search(pattern, command)
 
     method = match.group(1)
     item_name = match.group(2)
-    drive = match.group(3)
+    drive = match.group(4)
 
     find_directory = mapping_drive.get(drive)
 
@@ -51,14 +59,14 @@ def find_recursion(filename: str, directory: str, permission: str | None):
             path = os.path.join(directory, item)
 
             if os.path.isdir(path):
-                res =  find_recursion(filename, path, None)
+                result =  find_recursion(filename, path, None)
 
-                if isinstance(res, str):
-                    return res
-
+                if isinstance(result, str):
+                    return result
 
             if os.path.isfile(path):
-                if item.startswith(filename):
+                lower_item = item.lower()
+                if lower_item.startswith(filename):
                     return os.path.join(directory, item)
 
     except PermissionError as e:
@@ -97,7 +105,7 @@ def start_execute_command(command: str):
     method(absolute_path)
 
 
-start_execute_command("открой test на диске C")
+start_execute_command("открой без на диске це")
 
 
 
